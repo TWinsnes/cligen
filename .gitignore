@@ -1,0 +1,25 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage files
+coverage/
+coverage.txt
+cover.out
+*.cover
+
+# Logs and temp files
+*.log
+logs/
+*.tmp
+*.swp
+*.swo
+
+#build output directore
+/dist/
+/tmp/
+
+# Environment files
+.env
+.env.*
+!.env.example
