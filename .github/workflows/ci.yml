@@ -1,24 +1,27 @@
-name: Golang Lint
+name: CI
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-  workflow_dispatch:
-  workflow_call:
 
 permissions:
   contents: read
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - name: Run Linting rules
-        uses: golangci/golangci-lint-action@v8
-        with:
-          args: --timeout 5m0s
+      - name: Run tests
+        run: make test
+      - name: Run build
+        run: make build

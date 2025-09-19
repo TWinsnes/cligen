@@ -1,7 +1,6 @@
 name: Release
 
 on:
-#  pull_request:
   push:
     tags:
       - 'v*'
@@ -11,7 +10,11 @@ permissions:
   packages: write
 
 jobs:
+  # Run linting first as a sanity check before we build and release
+  lint:
+    uses: ./.github/workflows/lint.yml
   gorelease:
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
