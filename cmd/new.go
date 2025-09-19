@@ -63,6 +63,13 @@ func promptForOptions() (gen.TemplateOptions, error) {
 
 	templateOptions.AppName = appName
 
+	module, err := promptForModuleName()
+	if err != nil {
+		return gen.TemplateOptions{}, err
+	}
+
+	templateOptions.ModuleName = module
+
 	return templateOptions, nil
 }
 
@@ -121,5 +128,18 @@ func promptForAppName() (string, error) {
 		return "", err
 	}
 
+	return result, nil
+}
+
+func promptForModuleName() (string, error) {
+	prompt := promptui.Prompt{
+		Label:   "Enter Module Name",
+		Default: "github.com/twinsnes/cligen",
+	}
+
+	result, err := prompt.Run()
+	if err != nil {
+		return "", err
+	}
 	return result, nil
 }
