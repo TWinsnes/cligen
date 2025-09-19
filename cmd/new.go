@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"cligen/internal/gen"
 	"context"
 	"errors"
 	"fmt"
 
 	"github.com/manifoldco/promptui"
+	"github.com/twinsnes/cligen/internal/gen"
 	"github.com/urfave/cli/v3"
 )
 

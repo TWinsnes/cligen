@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/urfave/cli/v3"
+	"{{.ModuleName}}/cmd"
 )
 
 func main() {

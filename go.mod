@@ -1,4 +1,4 @@
-module cligen
+module github.com/twinsnes/cligen
 
 go 1.24
 

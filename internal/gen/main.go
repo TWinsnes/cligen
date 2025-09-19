@@ -1,12 +1,13 @@
 package gen
 
 import (
-	"cligen/templates"
 	"io/fs"
 	"log/slog"
 	"os"
 	"path/filepath"
 	"text/template"
+
+	"github.com/twinsnes/cligen/templates"
 )
 
 type TemplateOptions struct {
@@ -14,6 +15,7 @@ type TemplateOptions struct {
 	TemplateType     string
 	OutputPathPrefix string
 	AppName          string
+	ModuleName       string
 }
 
 type templatePath struct {
