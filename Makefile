@@ -1,4 +1,4 @@
-.PHONY: lint build
+.PHONY: lint build test
 
 lint:
 	golangci-lint run
