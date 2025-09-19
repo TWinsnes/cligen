@@ -82,7 +82,9 @@ func RenderTemplate(options TemplateOptions) error {
 		if err != nil {
 			return err
 		}
-		defer f.Close()
+		defer func(f *os.File) {
+			_ = f.Close()
+		}(f)
 
 		err = t.Execute(f, options)
 		if err != nil {

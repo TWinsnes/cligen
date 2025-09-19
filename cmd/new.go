@@ -82,7 +82,7 @@ func promptForTemplate() (string, error) {
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		return "", errors.New("Prompt failed")
+		return "", errors.New("prompt failed")
 	}
 
 	return result, nil
@@ -103,7 +103,7 @@ func promptForGolangVersion() (string, error) {
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
-		return "", errors.New("Prompt failed")
+		return "", errors.New("prompt failed")
 	}
 
 	return result, nil
