@@ -56,7 +56,9 @@ sboms:
     disable: false
 
 homebrew_casks:
-  - repository:
+  - description: "CLI for generating Go CLI apps with sane defaults and opinionated release pipelines."
+    homepage: "https://github.com/twinsnes/cligen"
+    repository:
       owner: twinsnes
       name: homebrew-tap
       token: "{{ .Env.TAP_GITHUB_TOKEN }}"
