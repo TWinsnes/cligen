@@ -1,0 +1,71 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+
+archives:
+  - formats: [tar.gz]
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{`{{ .ProjectName }}`}}_
+      {{`{{- title .Os }}`}}_
+      {{`{{- if eq .Arch "amd64" }}`}}x86_64
+      {{`{{- else if eq .Arch "386" }}`}}i386
+      {{`{{- else }}{{ .Arch }}{{ end }}`}}
+      {{`{{- if .Arm }}v{{ .Arm }}{{ end }}`}}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+
+release:
+  footer: >-
+
+    ---
+
+    Released by [GoReleaser](https://github.com/goreleaser/goreleaser).
+
+sboms:
+  - id: {{.AppName}}
+    disable: false
+
+homebrew_casks:
+  - description: "CLI for generating Go CLI apps with sane defaults and opinionated release pipelines."
+    homepage: "https://github.com/twinsnes/cligen"
+    repository:
+      owner: twinsnes
+      name: homebrew-tap
+      token: "{{`{{ .Env.TAP_GITHUB_TOKEN }}`}}"
+    hooks:
+      post:
+        # Disable quarantine on macOS for the binary instead of signing it.
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/{{`{{.ProjectName}}`}}"]
+          end

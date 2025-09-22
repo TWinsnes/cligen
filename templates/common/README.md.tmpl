@@ -8,7 +8,22 @@
 2. Run `make build` to compile the binary and verify it works. It should be available under `dist/{{.AppName}}`
 3. Build your app
 
+# Config
 
+## Set up automated homebrew publishing
+
+This will allow you to automatically publish a new version to homebrew each time you push a new tag to github.
+
+### homebrew repo
+
+To use this you need to create a new homebrew tap. This is a public github repo that will contain the formula / casks for your application.  The name of the repo should follow the convention `<github_username>/homebrew-tap`.  For example, if your github username is `twinsnes`. then the repo name should be `twinsnes/homebrew-tap`.
+
+### Access
+
+Create a new PAT token with `content` write access to the homebrew tap repo and store the key as a secret in your github
+repo. This is required so the github action that is building the application can push the new version to the homebrew tap.
+
+Secret name: `TAP_GITHUB_TOKEN`
 
 ---
 This app was scaffolded using [cligen](https://github.com/twinsnes/cligen) ❤️
