@@ -1,4 +1,4 @@
-.PHONY: lint build build-linux test vhs clean
+.PHONY: lint build test vhs clean
 
 lint:
 	golangci-lint run
@@ -6,14 +6,11 @@ lint:
 build:
 	go build -o dist/cligen
 
-build-linux:
-	GOOS=linux go build -o dist/cligen
-
 test:
 	go test ./...
 
 vhs:
-	make build-linux;
+	GOOS=linux go build -o dist/cligen;
 	cp demo.tape dist/demo.tape;
 	cd dist && docker run --rm -v $$(PWD):/vhs ghcr.io/charmbracelet/vhs demo.tape;
 	cp dist/demo.gif demo.gif;

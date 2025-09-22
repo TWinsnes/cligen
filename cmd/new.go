@@ -2,8 +2,6 @@ package cmd
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"github.com/manifoldco/promptui"
 	"github.com/twinsnes/cligen/internal/gen"
@@ -24,8 +22,6 @@ func newCmd() *cli.Command {
 			if err != nil {
 				return err
 			}
-
-			fmt.Printf("%q\n", templateOptions)
 
 			err = gen.RenderTemplate(templateOptions)
 			if err != nil {
@@ -88,8 +84,7 @@ func promptForTemplate() (string, error) {
 	_, result, err := prompt.Run()
 
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return "", errors.New("prompt failed")
+		return "", err
 	}
 
 	return result, nil
@@ -109,8 +104,7 @@ func promptForGolangVersion() (string, error) {
 	_, result, err := prompt.Run()
 
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return "", errors.New("prompt failed")
+		return "", err
 	}
 
 	return result, nil

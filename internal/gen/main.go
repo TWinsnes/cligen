@@ -21,6 +21,7 @@ type TemplateOptions struct {
 type templatePath struct {
 	inputPath  string
 	outputPath string
+	isTemplate bool
 }
 
 func GetTemplates() ([]string, error) {
@@ -47,29 +48,17 @@ func RenderTemplate(options TemplateOptions) error {
 		return err
 	}
 
-	slog.Info("Type Template paths", slog.Any("templatePaths", templatePaths))
-
 	commonTemplatePaths, err := getCommonTemplatePaths()
 	if err != nil {
 		return err
 	}
 
-	slog.Info("Common Template paths", slog.Any("templatePaths", commonTemplatePaths))
-
 	templatePaths = append(commonTemplatePaths, templatePaths...)
-
-	slog.Info("All Template paths", slog.Any("templatePaths", templatePaths))
 
 	for _, templatePath := range templatePaths {
 		outputPath := filepath.Join(options.OutputPathPrefix, templatePath.outputPath)
 
-		slog.Info("Template path", slog.Any("templatePath", templatePath))
 		b, err := fs.ReadFile(templates.FolderFS, templatePath.inputPath)
-		if err != nil {
-			return err
-		}
-
-		t, err := template.New(outputPath).Parse(string(b))
 		if err != nil {
 			return err
 		}
@@ -86,11 +75,27 @@ func RenderTemplate(options TemplateOptions) error {
 			_ = f.Close()
 		}(f)
 
-		err = t.Execute(f, options)
-		if err != nil {
-			return err
+		if templatePath.isTemplate {
+
+			t, err := template.New(outputPath).Parse(string(b))
+			if err != nil {
+				return err
+			}
+
+			err = t.Execute(f, options)
+			if err != nil {
+				return err
+			}
+			slog.Info("Template rendered", slog.Any("templatePath", outputPath))
+		} else {
+			_, err = f.Write(b)
+
+			if err != nil {
+				return err
+			}
+
+			slog.Info("File copied", slog.Any("templatePath", outputPath))
 		}
-		slog.Info("Template rendered", slog.Any("templatePath", outputPath))
 	}
 
 	return nil
@@ -104,14 +109,19 @@ func getTemplatePaths(pathPrefix string) ([]templatePath, error) {
 			return nil
 		}
 
+		var isTemplate bool
+
 		// remove pathPrefix from path
 		outputPath := path[len(pathPrefix)+1:]
 
 		if len(outputPath) > 5 && outputPath[len(outputPath)-5:] == ".tmpl" {
 			outputPath = outputPath[:len(outputPath)-5]
+			isTemplate = true
+		} else {
+			isTemplate = false
 		}
 
-		templatePaths = append(templatePaths, templatePath{inputPath: path, outputPath: outputPath})
+		templatePaths = append(templatePaths, templatePath{inputPath: path, outputPath: outputPath, isTemplate: isTemplate})
 		return nil
 	})
 
