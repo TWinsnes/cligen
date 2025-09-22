@@ -56,15 +56,14 @@ sboms:
     disable: false
 
 homebrew_casks:
-  - name: cligen
-    repository:
+  - repository:
       owner: twinsnes
       name: homebrew-tap
       token: "{{ .Env.TAP_GITHUB_TOKEN }}"
     hooks:
       post:
-        # replace foo with the actual binary name
+        # Disable quarantine on macOS for the binary instead of signing it.
         install: |
           if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/cligen"]
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/{{.ProjectName}}"]
           end
