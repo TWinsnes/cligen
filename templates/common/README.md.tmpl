@@ -2,6 +2,11 @@
 
 < insert description >
 
+![Demo](demo.gif)
+
+> Update the above demo gif by running `make vhs`
+> Details in the demo are defined in [demo.tape](demo.tape)
+
 # First Steps
 
 1. Run `go mod tidy` to install dependencies
@@ -16,7 +21,9 @@ This will allow you to automatically publish a new version to homebrew each time
 
 ### homebrew repo
 
-To use this you need to create a new homebrew tap. This is a public github repo that will contain the formula / casks for your application.  The name of the repo should follow the convention `<github_username>/homebrew-tap`.  For example, if your github username is `twinsnes`. then the repo name should be `twinsnes/homebrew-tap`.
+To use this you need to create a new homebrew tap. This is a public github repo that will contain the formula / casks
+for your application.  The name of the repo should follow the convention `<github_username>/homebrew-tap`.  For example,
+if your github username is `twinsnes`. then the repo name should be `twinsnes/homebrew-tap`.
 
 ### Access
 
@@ -24,6 +31,17 @@ Create a new PAT token with `content` write access to the homebrew tap repo and 
 repo. This is required so the github action that is building the application can push the new version to the homebrew tap.
 
 Secret name: `TAP_GITHUB_TOKEN`
+
+# Demo as code using VHS
+
+You can automatically creat a demo gif of your cli application using (VHS by charmbracelet)[https://github.com/charmbracelet/vhs].
+VHS is a tool that allows you to define user input as file and then record a terminal session. This can then be shared
+as a gif. This makes it incredibly easy to update your demo as you make changes to your application.
+
+The demo is defined in [demo.tape](demo.tape).  You can update the demo by modifying this file and then running `make vhs`.
+
+We run VHS as a docker container, so we don't have to install dependencies like chromium on our local system. All the
+steps required are defined in the `Makefile`.
 
 ---
 This app was scaffolded using [cligen](https://github.com/twinsnes/cligen) ❤️

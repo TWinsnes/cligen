@@ -38,7 +38,7 @@ func newCmd() *cli.Command {
 
 func promptForOptions() (gen.TemplateOptions, error) {
 	templateOptions := gen.TemplateOptions{
-		OutputPathPrefix: "tmp",
+		OutputPathPrefix: ".",
 	}
 
 	result, err := promptForGolangVersion()
