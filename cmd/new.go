@@ -3,7 +3,10 @@ package cmd
 import (
 	"context"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"runtime"
+	"strings"
 
 	"github.com/manifoldco/promptui"
 	"github.com/twinsnes/cligen/internal/gen"
@@ -91,16 +94,27 @@ func promptForTemplate() (string, error) {
 }
 
 func promptForGolangVersion() (string, error) {
-	prompt := promptui.Select{
-		Label: "Select GoLang version",
-		Items: []string{
-			"1.25",
-			"1.24",
-			"1.23",
-		},
+	items := []string{
+		"1.25",
+		"1.24",
+		"1.23",
 	}
 
-	_, result, err := prompt.Run()
+	prompt := promptui.Select{
+		Label: "Select GoLang version",
+		Items: items,
+	}
+
+	want := currentEnvGoMinor()
+	start := 0
+	for i, v := range items {
+		if v == want {
+			start = i
+			break
+		}
+	}
+
+	_, result, err := prompt.RunCursorAt(start, 0)
 
 	if err != nil {
 		return "", err
@@ -143,4 +157,38 @@ func promptForModuleName() (string, error) {
 		return "", err
 	}
 	return result, nil
+}
+
+func currentEnvGoMinor() string {
+	// Try to get the toolchain version
+	out, err := exec.Command("go", "env", "GOVERSION").Output()
+	if err == nil {
+		return normalizeMajorMinor(strings.TrimSpace(string(out)))
+	}
+	// Fallback to the build version
+	return normalizeMajorMinor(runtime.Version())
+}
+
+func normalizeMajorMinor(goVersion string) string {
+	// Accept inputs like "go1.23.1", "1.23.1", or "devel go1.24-abcdef"
+	s := strings.TrimSpace(goVersion)
+
+	// If it contains spaces (like devel output), take the first token that starts with "go"
+	fields := strings.Fields(s)
+	for _, f := range fields {
+		if strings.HasPrefix(f, "go") {
+			s = f
+			break
+		}
+	}
+
+	s = strings.TrimPrefix(s, "go")
+	if i := strings.IndexByte(s, ' '); i >= 0 { // just in case
+		s = s[:i]
+	}
+	parts := strings.Split(s, ".")
+	if len(parts) >= 2 {
+		return parts[0] + "." + parts[1] // major.minor
+	}
+	return s
 }
