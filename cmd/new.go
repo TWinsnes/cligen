@@ -12,12 +12,9 @@ import (
 
 func newCmd() *cli.Command {
 	return &cli.Command{
-		Name:      "new",
-		Usage:     "Create a new CLI app in the specified directory",
-		ArgsUsage: "[path]",
-		Flags: []cli.Flag{
-			&cli.BoolFlag{Name: "force", Aliases: []string{"f"}, Usage: "Overwrite existing files if they already exist"},
-		},
+		Name:  "new",
+		Usage: "Create a new CLI app in the current directory",
+		Flags: []cli.Flag{},
 		Action: func(c context.Context, cmd *cli.Command) error {
 			templateOptions, err := promptForOptions()
 
