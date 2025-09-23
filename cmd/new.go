@@ -10,6 +10,7 @@ import (
 
 	"github.com/manifoldco/promptui"
 	"github.com/twinsnes/cligen/internal/gen"
+	"github.com/twinsnes/cligen/internal/git"
 	"github.com/urfave/cli/v3"
 )
 
@@ -105,7 +106,7 @@ func promptForGolangVersion() (string, error) {
 		Items: items,
 	}
 
-	want := currentEnvGoMinor()
+	want := getCurrentEnvGoMinor()
 	start := 0
 	for i, v := range items {
 		if v == want {
@@ -147,9 +148,11 @@ func promptForAppName() (string, error) {
 }
 
 func promptForModuleName() (string, error) {
+	def := getDefaultModuleName()
+
 	prompt := promptui.Prompt{
 		Label:   "Enter Module Name",
-		Default: "github.com/twinsnes/cligen",
+		Default: def,
 	}
 
 	result, err := prompt.Run()
@@ -159,7 +162,17 @@ func promptForModuleName() (string, error) {
 	return result, nil
 }
 
-func currentEnvGoMinor() string {
+func getDefaultModuleName() string {
+	m := git.ModuleFromGit()
+
+	if m == "" {
+		m = "github.com/twinsnes/cligen"
+	}
+
+	return m
+}
+
+func getCurrentEnvGoMinor() string {
 	// Try to get the toolchain version
 	out, err := exec.Command("go", "env", "GOVERSION").Output()
 	if err == nil {
