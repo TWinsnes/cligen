@@ -50,8 +50,3 @@ cligen new
 ```
 
 Follow the prompts to generate the app, and then open the generated README file for instructions on what to do next.
-
-# TODO
-
-- [ ] Add default app name from folder name
-- [ ] Add default module name from git remote
