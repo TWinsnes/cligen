@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"context"
+	"os"
+	"path/filepath"
 
 	"github.com/manifoldco/promptui"
 	"github.com/twinsnes/cligen/internal/gen"
@@ -111,9 +113,17 @@ func promptForGolangVersion() (string, error) {
 }
 
 func promptForAppName() (string, error) {
+
+	cliName := "mycli"
+
+	cwd, err := os.Getwd()
+	if err == nil {
+		cliName = filepath.Base(cwd)
+	}
+
 	prompt := promptui.Prompt{
 		Label:   "Enter App Name",
-		Default: "mycli",
+		Default: cliName,
 	}
 
 	result, err := prompt.Run()
