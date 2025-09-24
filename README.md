@@ -1,5 +1,11 @@
 # cligen 
 
+![GitHub Release](https://img.shields.io/github/v/release/twinsnes/cligen)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/twinsnes/cligen/ci.yml)
+![GitHub License](https://img.shields.io/github/license/twinsnes/cligen)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/twinsnes/cligen)
+
+
 A CLI tool to generate a CLI app scaffold with sane defaults and complete github CI/CD so you can focus on building the app rather than the boilerplate.
 
 ![Demo](demo.gif)
