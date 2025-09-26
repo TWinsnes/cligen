@@ -56,3 +56,20 @@ cligen new
 ```
 
 Follow the prompts to generate the app, and then open the generated README file for instructions on what to do next.
+
+# Docs
+
+## Config
+
+Cligen supports a yaml configuration file to preset values for generated applications. It's stored 
+in your home directory (`~/.config/.cligen.yaml`)
+
+Use the `configure` command to set up and save the configuration file to the correct location.
+
+```yaml
+homebrew:
+    enabled: true
+    repo: <insert repo name>
+    github_username: <insert repo owner's github username, e.g. twinsnes>
+```
+

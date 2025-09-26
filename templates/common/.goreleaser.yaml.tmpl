@@ -55,12 +55,13 @@ sboms:
   - id: {{.AppName}}
     disable: false
 
+{{- if .HomebrewEnabled }}
 homebrew_casks:
-  - description: "CLI for generating Go CLI apps with sane defaults and opinionated release pipelines."
-    homepage: "https://github.com/twinsnes/cligen"
+  - description: "Write a small description of the cli purpose"
+    homepage: "Add link to CLI homepage, or github repo"
     repository:
-      owner: twinsnes
-      name: homebrew-tap
+      owner: {{ .HomebrewUsername }}
+      name: {{ .HomebrewRepo }}
       token: "{{`{{ .Env.TAP_GITHUB_TOKEN }}`}}"
     hooks:
       post:
@@ -69,3 +70,4 @@ homebrew_casks:
           if OS.mac?
             system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/{{`{{.ProjectName}}`}}"]
           end
+ {{ end }}
