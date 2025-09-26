@@ -70,10 +70,8 @@ func NormalizeRemoteToModule(remote string) string {
 	if s == "" {
 		return ""
 	}
-	// Trim trailing .git if present
-	if strings.HasSuffix(s, ".git") {
-		s = strings.TrimSuffix(s, ".git")
-	}
+
+	s = strings.TrimSuffix(s, ".git")
 
 	var host, path string
 

@@ -16,6 +16,9 @@ type TemplateOptions struct {
 	OutputPathPrefix string
 	AppName          string
 	ModuleName       string
+	HomebrewRepo     string
+	HomebrewEnabled  bool
+	HomebrewUsername string
 }
 
 type templatePath struct {

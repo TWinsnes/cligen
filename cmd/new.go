@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"context"
+	"github.com/twinsnes/cligen/internal/config"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -20,7 +21,14 @@ func newCmd() *cli.Command {
 		Usage: "Create a new CLI app in the current directory",
 		Flags: []cli.Flag{},
 		Action: func(c context.Context, cmd *cli.Command) error {
-			templateOptions, err := promptForOptions()
+
+			conf, err := config.LoadConfig()
+
+			if err != nil {
+				return err
+			}
+
+			templateOptions, err := promptForOptions(conf)
 
 			if err != nil {
 				return err
@@ -35,9 +43,13 @@ func newCmd() *cli.Command {
 	}
 }
 
-func promptForOptions() (gen.TemplateOptions, error) {
+func promptForOptions(conf *config.Config) (gen.TemplateOptions, error) {
+
 	templateOptions := gen.TemplateOptions{
 		OutputPathPrefix: ".",
+		HomebrewEnabled:  conf.HomebrewConfig.Enabled,
+		HomebrewRepo:     conf.HomebrewConfig.Repo,
+		HomebrewUsername: conf.HomebrewConfig.GithubUsername,
 	}
 
 	result, err := promptForGolangVersion()
