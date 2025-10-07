@@ -55,7 +55,7 @@ sboms:
   - id: {{.AppName}}
     disable: false
 
-{{- if .HomebrewEnabled }}
+{{ if .HomebrewEnabled }}
 homebrew_casks:
   - description: "Write a small description of the cli purpose"
     homepage: "Add link to CLI homepage, or github repo"
@@ -70,4 +70,4 @@ homebrew_casks:
           if OS.mac?
             system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/{{`{{.ProjectName}}`}}"]
           end
- {{ end }}
+{{ end }}
