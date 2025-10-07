@@ -9,6 +9,7 @@ type TemplateOptions struct {
 	HomebrewRepo     string
 	HomebrewEnabled  bool
 	HomebrewUsername string
+	DocsEnabled      bool
 	Features         []Feature
 }
 

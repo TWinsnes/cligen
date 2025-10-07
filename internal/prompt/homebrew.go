@@ -10,7 +10,7 @@ import (
 	"github.com/twinsnes/cligen/internal/gen"
 )
 
-type HomebrewConfig struct {
+type HomebrewFeature struct {
 	name            string
 	path            string
 	hasTemplateDir  bool
@@ -20,8 +20,8 @@ type HomebrewConfig struct {
 	githubUsername  string
 }
 
-func NewHomebrewConfig(conf *config.Config) *HomebrewConfig {
-	return &HomebrewConfig{
+func NewHomebrewFeature(conf *config.Config) *HomebrewFeature {
+	return &HomebrewFeature{
 		name:            "Homebrew",
 		path:            "",
 		hasTemplateDir:  false,
@@ -32,24 +32,24 @@ func NewHomebrewConfig(conf *config.Config) *HomebrewConfig {
 	}
 }
 
-func (h *HomebrewConfig) GetName() string {
+func (h *HomebrewFeature) GetName() string {
 	return h.name
 }
 
-func (h *HomebrewConfig) GetPath() string {
+func (h *HomebrewFeature) GetPath() string {
 	return h.path
 }
 
-func (h *HomebrewConfig) HasTemplateDir() bool {
+func (h *HomebrewFeature) HasTemplateDir() bool {
 	return h.hasTemplateDir
 }
 
-func (h *HomebrewConfig) IsDefaultSelected() bool {
+func (h *HomebrewFeature) IsDefaultSelected() bool {
 	return h.defaultSelected
 }
 
 // RunPrompt runs the homebrew config prompt and updates the config based on the user input
-func (h *HomebrewConfig) RunPrompt() error {
+func (h *HomebrewFeature) RunPrompt() error {
 	var repo string
 	var username string
 
@@ -87,7 +87,7 @@ func (h *HomebrewConfig) RunPrompt() error {
 	return nil
 }
 
-func (h *HomebrewConfig) UpdateTemplateOptions(options *gen.TemplateOptions) error {
+func (h *HomebrewFeature) UpdateTemplateOptions(options *gen.TemplateOptions) error {
 	options.HomebrewEnabled = h.enabled
 	options.HomebrewRepo = h.repo
 	options.HomebrewUsername = h.githubUsername

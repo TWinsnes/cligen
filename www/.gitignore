@@ -1,0 +1,5 @@
+publc/
+resources/_gen/
+
+# generated file
+assets/jsconfig.json

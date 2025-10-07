@@ -1,0 +1,31 @@
+hero:
+  enable: true
+  weight: 10
+  template: hero
+
+  title: cligen
+  subtitle: Cli generator for Golang with sane defaults
+
+  image:
+    path: "images"
+    filename: "demo.gif"
+    alt: "Demo animation"
+    boxShadow: false
+    rounded: false
+
+  ctaButton:
+    icon: rocket_launch
+    btnText: "Get Started"
+    url: "/docs/quickstart"
+  cta2Button:
+    icon: article
+    btnText: Documentation
+    url: "/docs"
+
+  info: "**Open Source** Apache2 Licensed"
+
+featureGrid:
+  enabled: false
+
+imageCompare:
+  enabled: false

@@ -29,6 +29,7 @@ I hope that you find it useful!
 - [x] Gitleaks secret scanning
 - [x] Dependency license review
 - [x] Demo generator using VHS 
+- [x] Github pages
 
 # Quickstart
 
@@ -73,3 +74,4 @@ homebrew:
     github_username: <insert repo owner's github username, e.g. twinsnes>
 ```
 
+## 

@@ -1,12 +1,12 @@
 baseURL = '/'
 languageCode = 'en-us'
-title = 'Cligen'
+title = '{{ .AppName }}'
 enableGitInfo = true
 
 [params]
 
     [params.docs]
-        title = 'Cligen'
+        title = '{{ .AppName }}'
         darkMode = true
         repoURL = "https://github.com/twinsnes/cligen"
 
