@@ -31,8 +31,8 @@ func NewConfig() *Config {
 	return &Config{
 		HomebrewConfig: HomebrewConfig{
 			Enabled:        true,
-			Repo:           "<insert repo name>",
-			GithubUsername: "<insert repo owner's github username, e.g. twinsnes>",
+			Repo:           "",
+			GithubUsername: "",
 		},
 	}
 }

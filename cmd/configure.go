@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"context"
-	"errors"
 	"fmt"
+
+	"github.com/charmbracelet/huh"
 	"github.com/twinsnes/cligen/internal/config"
 
-	"github.com/manifoldco/promptui"
 	"github.com/urfave/cli/v3"
 )
 
@@ -19,7 +19,7 @@ func configureCmd() *cli.Command {
 			configureFileLocationCmd(),
 		},
 		Action: func(c context.Context, cmd *cli.Command) error {
-			return configurePrompt()
+			return runConfigurePrompt()
 		},
 	}
 }
@@ -39,7 +39,7 @@ func configureFileLocationCmd() *cli.Command {
 	}
 }
 
-func configurePrompt() error {
+func runConfigurePrompt() error {
 
 	conf, err := config.LoadConfig()
 
@@ -47,25 +47,30 @@ func configurePrompt() error {
 		return err
 	}
 
-	enabled, err := promptForHomebrewEnabled()
+	form := huh.NewForm(
+		huh.NewGroup(
+			huh.NewConfirm().
+				Title("Homebrew").
+				Description("Enable Homebrew tap?").
+				Affirmative("yes").
+				Negative("no").
+				Value(&conf.HomebrewConfig.Enabled),
+			huh.NewInput().
+				Title("Homebrew Github username").
+				Description("The username of the homebrew repo owner.").
+				Value(&conf.HomebrewConfig.GithubUsername),
+			huh.NewInput().
+				Title("Homebrew repo name").
+				Description("The name of the homebrew repo.").
+				Value(&conf.HomebrewConfig.Repo),
+		),
+	)
+
+	err = form.Run()
 
 	if err != nil {
 		return err
 	}
-
-	conf.HomebrewConfig.Enabled = enabled
-
-	username, err := promtForGithubUsername(conf.HomebrewConfig.GithubUsername)
-	if err != nil {
-		return err
-	}
-	conf.HomebrewConfig.GithubUsername = username
-
-	repo, err := promptForHomebrewRepo(conf.HomebrewConfig.Repo)
-	if err != nil {
-		return err
-	}
-	conf.HomebrewConfig.Repo = repo
 
 	err = conf.SaveConfig()
 	if err != nil {
@@ -76,40 +81,4 @@ func configurePrompt() error {
 
 	fmt.Println("Configuration saved to: ", path)
 	return nil
-}
-
-func promptForHomebrewEnabled() (bool, error) {
-	prompt := promptui.Prompt{
-		Label:     "Enable Homebrew tap?",
-		IsConfirm: true,
-	}
-
-	_, err := prompt.Run()
-	if err != nil {
-		if errors.Is(err, promptui.ErrAbort) {
-			return false, nil
-		}
-		fmt.Println("Prompt failed:", err)
-		return false, err
-	}
-
-	return true, nil
-}
-
-func promtForGithubUsername(def string) (string, error) {
-	prompt := promptui.Prompt{
-		Label:   "Homebrew Github username",
-		Default: def,
-	}
-
-	return prompt.Run()
-}
-
-func promptForHomebrewRepo(def string) (string, error) {
-	prompt := promptui.Prompt{
-		Label:   "Homebrew repo name",
-		Default: def,
-	}
-
-	return prompt.Run()
 }
