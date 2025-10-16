@@ -68,6 +68,16 @@ Type "./cligen new"
 Sleep 1000ms
 Enter
 
+# enter app name
+Type "my_favourite_cli"
+Sleep 1000ms
+Enter
+
+# enter module name
+Type "github.com/twinsnes/my_favourite_cli"
+Sleep 2000ms
+Enter
+
 # select golang version
 Sleep 1000ms
 Down
@@ -82,16 +92,15 @@ Up
 Sleep 500ms
 Enter
 
-# enter app name
-Type "my_favourite_cli"
+# Select features
 Sleep 1000ms
+Space
+Sleep 500ms
+Down
+Sleep 500ms
 Enter
 
-# enter module name
-Type "github.com/twinsnes/my_favourite_cli"
-Sleep 2000ms
-Enter
-
+# List all files and directories to show that it was created correctly
 Sleep 1000ms
 Type "ls -al"
 Sleep 500ms
