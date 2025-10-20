@@ -20,3 +20,11 @@ When you run the generator, it will ask you a few questions about your project, 
 The project will be a go module, and it will contain a few basic files and directories. In addition to this it will also generate all the required scripts and configuration files to get you started.
 
 Cligen contains quite a few different features that can be used to build your app, please check out the [features page](docs/features) for more details on the individual features and how to use them.
+
+## Why golang?
+
+Golang makes it easy to build cross-platform binaries that are statically linked, which means they can run on any systems without any external library dependencies. This makes it easy to distribute and will not break as systems update, build/install once, and it will keep working forever. 
+
+Golang is also a language that leans towards using less external dependencies because of the everything-included standard library. This reduces the chances of supply chain injection attacks and makes it safer to run in processes with production access like ci/cd pipelines.
+
+Why not use rust, javascript or python? These languages are great but do not have some of the same benefits that golang has for security and portability. Not saying you shouldn't use then, but for now, in my opinion, golang is the best choice for building cli application that will be used in production environments.
