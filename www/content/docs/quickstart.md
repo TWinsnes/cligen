@@ -1,30 +1,56 @@
 +++
 weight = 100
-date = "2023-05-03T22:37:22+01:00"
-draft = true
+date = "2025-10-11T17:00:00+10:00"
+draft = false
 author = "Thomas Winsnes"
 title = "Quickstart"
 icon = "rocket_launch"
 toc = true
-description = "A quickstart guide to creating new content in Lotus Docs"
-publishdate = "2023-05-03T22:37:22+01:00"
+description = "A quickstart guide to install and use cligen"
+publishdate = "2025-10-11T17:00:00+10:00"
 tags = ["Beginners"]
 +++
+## Requirements
 
-## Create New Content
+* Git
+* Golang ≥ 1.23
 
-Navigate to the www folder in your repo and use the `hugo new` command to create a file in the `content/docs` directory:
+### Optional
+
+* Docker
+
+## Install
+
+The simplest way to install cligen is with Homebrew:
 
 ```shell
-hugo new docs/examplepage.md
+brew install twinsnes/tap/cligen
 ```
 
-## Preview your docs site 
+This makes this tool available in your terminal.
 
-Run the following command in the `www` folder to start the server with drafts.
+## Usage
+
+Creat a new directory for your CLI app, and navigate to it.
+
+```shell 
+mkdir my-cli-app
+cd my-cli-app
+```
+
+Optionally, set up a git repository and configure a remote. This will be picked up by the generator and used as your project's module name.
+
+```shell 
+git init
+git remote add origin git@github.com:my-username/my-cli-app.git
+```
+
+To generate a new app scaffold, run the following command in the directory you navigated to:
 
 ```shell
-hugo server -D
+cligen new
 ```
 
-Your docs server should now be running on http://localhost:1313/docs
+This will prompt you to fill in some information about you app, and select which features you would like to include. Depending on the features you select, you may be prompted with additional questions to ensure the app is configured correctly. Some of the features also requires additional dependencies to work properly. Please see the [features](docs/features) page for more information.
+
+Follow the prompts to generate the app, and then open the generated README file for instructions on the next steps.

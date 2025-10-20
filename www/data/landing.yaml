@@ -10,22 +10,53 @@ hero:
     path: "images"
     filename: "demo.gif"
     alt: "Demo animation"
-    boxShadow: false
-    rounded: false
+    boxShadow: true
+    rounded: true
 
   ctaButton:
     icon: rocket_launch
     btnText: "Get Started"
-    url: "/docs/quickstart"
+    url: "docs/quickstart"
   cta2Button:
     icon: article
     btnText: Documentation
-    url: "/docs"
+    url: "docs"
 
   info: "**Open Source** Apache2 Licensed"
 
 featureGrid:
-  enabled: false
+  enable: true
+  weight: 20
+  template: feature grid
+
+  title: What's included?
+#  subtitle:
+
+  items:
+    - title: Homebrew
+      icon: box
+      description: Build and release homebrew recipes automatically
+
+    - title: Automated Demo
+      icon: box
+      description: Automatically create a demo gif from code using VHS
+
+    - title: Docs website
+      icon: box
+      description: Scaffold for a docs website using Hugo, hosted on Github pages. With required Github Actions for CI/CD.
+
+    - title: Automated release pipeline
+      icon: box
+      description: Fully automated release pipeline using Github Actions, with test, lint, build stages built in.
+
+    - title: Credential leak scanning
+      icon: box
+      description: Scans your code for secrets using Gitleaks as part of the CI/CD pipeline.
+
+    - title: Automated dependency review
+      icon: box
+      description: Automatically review your dependencies using OWASP Dependency Check as part of the CI/CD pipeline to ensure no license mismatch.
+
 
 imageCompare:
   enabled: false

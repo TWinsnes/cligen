@@ -1,4 +1,3 @@
-baseURL = '/'
 languageCode = 'en-us'
 title = 'Cligen'
 enableGitInfo = true
@@ -9,6 +8,10 @@ enableGitInfo = true
         title = 'Cligen'
         darkMode = true
         repoURL = "https://github.com/twinsnes/cligen"
+        prism = true
+        sidebarIcons = true
+        titleIcon = true
+        descriptions = true
 
     [params.social]
         github = "twinsnes/cligen"
