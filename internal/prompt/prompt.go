@@ -100,11 +100,11 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 			huh.NewSelect[string]().
 				Title("Golang version").
 				Description("The version of Go to use.").
-					Options(
-						huh.NewOption("1.25", "1.25"),
-						huh.NewOption("1.24", "1.24"),
-						huh.NewOption("1.23", "1.23"),
-					).
+				Options(
+					huh.NewOption("1.25", "1.25"),
+					huh.NewOption("1.24", "1.24"),
+					huh.NewOption("1.23", "1.23"),
+				).
 				Value(&golangVersion),
 		),
 		huh.NewGroup(

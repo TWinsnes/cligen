@@ -19,3 +19,21 @@ I found myself writing quite a few cli tools, and it was always the same boilerp
 This way I have a well-structured base to build on, and I can focus on building the actual app.
 
 I hope that you find it useful!
+
+## Installation
+
+Simplest way to install is by using homebrew
+
+```shell
+brew install twinsnes/tap/cligen
+```
+
+This makes cliegen available on our path and works around the MacOS Notarization requirement.
+
+Other installation methods can be found in the docs: https://twinsnes.github.io/cligen/docs/install/
+
+## Usage
+
+Call `cligen new` in the folder you would like to create a new cli application.
+
+Details on usage can be found in the docs: https://twinsnes.github.io/cligen/docs/quickstart/#usage
