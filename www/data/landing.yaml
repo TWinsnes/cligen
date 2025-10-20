@@ -4,11 +4,11 @@ hero:
   template: hero
 
   title: cligen
-  subtitle: Cli generator for Golang with sane defaults
+  subtitle: Scaffolds your cli tools with a modern CI/CD pipeline so you don't have to. Focus on building the tool, not the supporting frameworks.
 
   image:
     path: "images"
-    filename: "demo.gif"
+    filename: "demo.png"
     alt: "Demo animation"
     boxShadow: true
     rounded: true
