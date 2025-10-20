@@ -34,28 +34,32 @@ featureGrid:
 
   items:
     - title: Homebrew
-      icon: box
+      icon: install_desktop
       description: Build and release homebrew recipes automatically
 
     - title: Automated Demo
-      icon: box
+      icon: video_library
       description: Automatically create a demo gif from code using VHS
 
     - title: Docs website
-      icon: box
+      icon: web_stories
       description: Scaffold for a docs website using Hugo, hosted on Github pages. With required Github Actions for CI/CD.
 
     - title: Automated release pipeline
-      icon: box
+      icon: all_inclusive
       description: Fully automated release pipeline using Github Actions, with test, lint, build stages built in.
 
     - title: Credential leak scanning
-      icon: box
+      icon: beenhere
       description: Scans your code for secrets using Gitleaks as part of the CI/CD pipeline.
 
     - title: Automated dependency review
-      icon: box
+      icon: checklist_rtl
       description: Automatically review your dependencies using OWASP Dependency Check as part of the CI/CD pipeline to ensure no license mismatch.
+
+    - title: Automated release notes
+      icon: rate_review
+      description: Automatically generate release notes based on the commits since the last release using conventional commits.
 
 
 imageCompare:

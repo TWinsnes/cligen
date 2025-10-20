@@ -25,6 +25,12 @@ To update your video, simply run the `make vhs` command from the root of your pr
 
 More details on the VHS syntax and examples can be found in the (VHS repository)[https://github.com/charmbracelet/vhs]
 
+## Automatic release notes
+
+The scaffolded release pipeline will automatically generate release notes based on the commits since the last release. This is done using the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard.
+
+By default, a few tags will be ignored: `chore:`, `docs:`, and `test:`. These tags are used for internal changes that don't affect the end user.
+
 ## Homebrew
 
 Releasing your CLI app as a Homebrew formula is an optional feature that can be enabled when running the `cligen new` command. It requires a couple of extra settings to be configured correctly:
