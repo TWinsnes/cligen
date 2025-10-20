@@ -1,3 +1,4 @@
+# Docs for landing page template can be found here: https://lotusdocs.dev/docs/guides/landing-page/overview/
 hero:
   enable: true
   weight: 10
@@ -24,6 +25,7 @@ hero:
 
   info: "**Open Source** Apache2 Licensed"
 
+# Icon reference: https://fonts.google.com/icons?icon.platform=web&icon.set=Material+Icons
 featureGrid:
   enable: true
   weight: 20

@@ -17,7 +17,7 @@ enableGitInfo = true
         github = "twinsnes/cligen"
 
     [params.flexsearch]
-        enavled = true
+        enabled = true
 
 [menu]
 [[menu.primary]]
