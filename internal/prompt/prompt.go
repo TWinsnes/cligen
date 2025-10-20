@@ -109,8 +109,8 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 		),
 		huh.NewGroup(
 			huh.NewSelect[string]().
-				Title("Template type").
-				Description("The type of template to use.").
+				Title("Template").
+				Description("The template to generate the app from.").
 				Options(templateTypeOptions...).
 				Value(&templateType),
 		),

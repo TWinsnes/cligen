@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/urfave/cli/v3"
+	"github.com/charmbracelet/huh"
 )
 
 func Run() {
@@ -31,8 +32,28 @@ func newCmd() *cli.Command {
 		Name:      "hello",
 		Usage:     "Greet the world",
 		Action: func(c context.Context, cmd *cli.Command) error {
-			fmt.Println("Hello, world!")
+		    name, err := promptForName()
+		    if err != nil {
+		        return err
+		    }
+			fmt.Printf("Hello %s\n", name)
 			return nil
 		},
 	}
+}
+
+func promptForName() (string, error) {
+	var name string
+	form := huh.NewForm(
+		huh.NewGroup(
+			huh.NewInput().
+				Title("What is your name?").
+				Value(&name),
+		),
+	)
+	err := form.Run()
+	if err != nil {
+		return "", err
+	}
+	return name, nil
 }
