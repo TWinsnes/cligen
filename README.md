@@ -4,6 +4,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/twinsnes/cligen/ci.yml)
 ![GitHub License](https://img.shields.io/github/license/twinsnes/cligen)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/twinsnes/cligen)
+![Github Downloads](https://img.shields.io/github/downloads/twinsnes/cligen/total)
 [![Static Badge](https://img.shields.io/badge/docs-github_pages-blue)](https://twinsnes.github.io/cligen/docs)
 
 
