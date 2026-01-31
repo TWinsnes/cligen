@@ -37,4 +37,4 @@ Under the repo settings, go to the `Secrets and variables` menu item and select 
 
 Once that is done it will be available to the release pipeline and you can publish the formula.
 
-To test this, create a new release and watch the logs to see if the formula is published correctly.
+To test this, create a new release by following the [Automated Releases](./releases.md) guide and watch the logs to see if the formula is published correctly.

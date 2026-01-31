@@ -1,5 +1,5 @@
 ---
-weight: 500
+weight: 600
 title: "Docs on GitHub Pages"
 description: "Overview of the docs on GitHub Pages feature"
 icon: "article"
@@ -27,7 +27,7 @@ The site is located in the `www` folder in the root of the repository. All comma
 
 ## Adding Documentation
 
-To add new pages to the generated site, simply create a new Markdown file in the `contents/docs` folder. To set up the front matter automatically you can use the `hugo new` command.
+To add new pages to the generated site, create a new Markdown file in the `contents/docs` folder. To set up the front matter automatically you can use the `hugo new` command.
 
 For a more indepth guide on how to set up and manage the documentation, please see the [Lotus Docs documentation](https://lotusdocs.dev/docs/quickstart/)
 
@@ -39,9 +39,9 @@ For details on how to configure the landing page, please see the [Lotus Docs doc
 
 ## Release Pipeline
 
-The release pipeline is triggered by a version tag being pushed to the repository and will build the docs and deploy them to the github pages environment. It can also be triggered manually, and in this case will build from the latest commit on the `main` branch by default.
+The Pages release pipeline is triggered by a version tag being pushed to the repository and will build the docs and deploy them to the GitHub Pages environment. It can also be triggered manually, and in this case will build from the latest commit on the `main` branch by default.
 
-The workflow is defined in the `.github/workflows/pages/yml` file.
+The workflow is defined in the `.github/workflows/pages.yml` file.
 
 ## Troubleshooting
 

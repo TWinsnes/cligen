@@ -1,5 +1,5 @@
 ---
-weight: 400
+weight: 500
 title: "Automated Release Notes"
 description: "Overview of the Automated Release Notes feature"
 icon: "article"
@@ -19,5 +19,7 @@ By default, a few tags will be ignored:
 
 These tags are intended to be used for internal changes that don't affect the end user.
 
-To configure the tags that will be ignored, edit the .goreleaser.yml file in the root of the project.
+To configure the tags that will be ignored, edit the .goreleaser.yaml file in the root of the project.
 Details on how to configure the release notes can be found in the [goreleaser documentation](https://goreleaser.com/customization/release/#github).
+
+For more information on how to trigger a release, see the [Automated Releases](./releases.md) guide.
