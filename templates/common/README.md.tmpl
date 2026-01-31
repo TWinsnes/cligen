@@ -9,9 +9,42 @@
 
 # First Steps
 
-1. Run `go mod tidy` to install dependencies
-2. Run `make build` to compile the binary and verify it works. It should be available under `dist/{{.AppName}}`. Run it by calling `dist/{{.AppName}}` in the terminal, it should print out the help details.
-3. Develop your app
+1. **Initialize Go modules**: Run `go mod tidy` to install dependencies.
+2. **Build your app**: Run `make build` to compile the binary. The binary will be available at `dist/{{.AppName}}`.
+3. **Verify the installation**: Run `dist/{{.AppName}}` to see the help output.
+4. **Develop**: Start adding your commands in the `cmd/` directory.
+
+{{ if .DocsEnabled }}
+# Documentation
+
+This project includes a Hugo-based documentation site located in the `www` directory.
+
+## Local Development
+
+1. Navigate to the documentation directory: `cd www`
+2. Install dependencies: `hugo mod get`
+3. Start the local development server: `hugo server`
+4. View the documentation at `http://localhost:1313`
+
+## Publishing
+
+The documentation is configured to be published via GitHub Pages. You can enable this in your GitHub repository settings under **Settings > Pages**.
+{{ end }}
+
+{{ if .HomebrewEnabled }}
+# Homebrew Distribution
+
+This project is configured to automatically publish releases to a Homebrew tap.
+
+## Configuration
+
+1. **Create a Tap Repository**: If you haven't already, create a public repository on GitHub named `homebrew-tap` (e.g., `{{.HomebrewUsername}}/homebrew-tap`).
+2. **Setup GitHub Secret**: 
+   - Generate a Personal Access Token (PAT) with `repo` or `workflow` scope.
+   - Add it as a secret named `TAP_GITHUB_TOKEN` in this repository's settings (**Settings > Secrets and variables > Actions**).
+
+When you push a new tag (e.g., `v0.1.0`), GoReleaser will automatically update the formula in your tap.
+{{ end }}
 
 # Makefile targets
 
@@ -39,7 +72,7 @@ The following GitHub workflows are configured for this project:
 | Gitleaks    | Scans for secrets in the repository on pull requests                  |
 | Lint        | Runs lint checks on pull requests                                     |
 | Release     | Creates a new release when a tag matching `v*` is pushed.             |
-
+| Dependabot  | Keeps dependencies up to date automatically.                          |
 
 The workflows are defined in `.github/workflows` directory. Each workflow is triggered by specific events:
 
@@ -55,6 +88,9 @@ The workflows are defined in `.github/workflows` directory. Each workflow is tri
 - **Gitleaks**: Runs on every pull request
   - Scans the repository for secrets
 
+- **Dependabot**: Automatically creates pull requests to update dependencies
+  - Configured in `.github/dependabot.yml`
+
 - **Lint**: Runs on every pull request
   - Runs linting checks using golangci-lint
   - Uses the configuration file `.golangci-lint.yml`
@@ -66,24 +102,8 @@ The workflows are defined in `.github/workflows` directory. Each workflow is tri
   - Builds and attaches binaries for multiple platforms
   - Generates checksums for the binaries
   - Generates an SBOM for each binary
-  - Publishes changes to Homebrew for both macOS and Linux. See homebrew section below for more details on how to configure
+  - Publishes changes to Homebrew for both macOS and Linux. See Homebrew Distribution section above for more details on how to configure
 
-## Set up automated homebrew publishing
-
-This will allow you to automatically publish a new version to homebrew each time you push a new tag to github.
-
-### homebrew repo
-
-To use this you need to create a new homebrew tap. This is a public github repo that will contain the formula / casks
-for your application.  The name of the repo should follow the convention `<github_username>/homebrew-tap`.  For example,
-if your github username is `twinsnes`. then the repo name should be `twinsnes/homebrew-tap`.
-
-### Access
-
-Create a new PAT token with `content` write access to the homebrew tap repo and store the key as a secret in your github
-repo. This is required so the github action that is building the application can push the new version to the homebrew tap.
-
-Secret name: `TAP_GITHUB_TOKEN`
 
 # Demo as code using VHS
 

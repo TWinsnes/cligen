@@ -23,13 +23,13 @@ I hope that you find it useful!
 
 ## Installation
 
-Simplest way to install is by using homebrew
+Easiest way to install is by using homebrew
 
 ```shell
 brew install twinsnes/tap/cligen
 ```
 
-This makes cliegen available on our path and works around the MacOS Notarization requirement.
+This makes cliegen available on your path and works around the MacOS Notarization requirement.
 
 Other installation methods can be found in the docs: https://twinsnes.github.io/cligen/docs/install/
 
