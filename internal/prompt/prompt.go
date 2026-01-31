@@ -134,6 +134,7 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 		GolangVersion: golangVersion,
 		ModuleName:    goModuleName,
 		TemplateType:  templateType,
+		DryRun:        false,
 	}, nil
 }
 

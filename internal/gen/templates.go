@@ -33,6 +33,11 @@ func (options *TemplateOptions) RenderTemplate() error {
 	for _, templatePath := range templatePaths {
 		outputPath := filepath.Join(options.OutputPathPrefix, templatePath.outputPath)
 
+		if options.DryRun {
+			slog.Info("[Dry run]: Would create file", slog.Any("path", outputPath))
+			continue
+		}
+
 		b, err := fs.ReadFile(templates.FolderFS, templatePath.inputPath)
 		if err != nil {
 			return err

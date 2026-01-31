@@ -11,6 +11,7 @@ type TemplateOptions struct {
 	HomebrewUsername string
 	DocsEnabled      bool
 	Features         []Feature
+	DryRun           bool
 }
 
 type templatePath struct {
