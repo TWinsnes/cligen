@@ -4,8 +4,11 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
+	"slices"
+	"strings"
 
 	"github.com/charmbracelet/huh"
 	"github.com/twinsnes/cligen/internal/config"
@@ -76,11 +79,14 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 
 	defaultAppName := getDefaultAppName()
 	defaultModule := getDefaultModule()
+	golangVersion = getDefaultGoVersion()
 
 	templateTypeOptions, err := getTemplateTypeOptions()
 	if err != nil {
 		return gen.TemplateOptions{}, err
 	}
+
+	goVersionOptions := getGolangVersionOptions(golangVersion)
 
 	form := huh.NewForm(
 		huh.NewGroup(
@@ -100,11 +106,7 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 			huh.NewSelect[string]().
 				Title("Golang version").
 				Description("The version of Go to use.").
-				Options(
-					huh.NewOption("1.25", "1.25"),
-					huh.NewOption("1.24", "1.24"),
-					huh.NewOption("1.23", "1.23"),
-				).
+				Options(goVersionOptions...).
 				Value(&golangVersion),
 		),
 		huh.NewGroup(
@@ -136,6 +138,31 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 		TemplateType:  templateType,
 		DryRun:        false,
 	}, nil
+}
+
+func getGolangVersionOptions(golangVersion string) []huh.Option[string] {
+	goVersions := []string{"1.25", "1.24", "1.23"}
+	hasDefault := false
+	for _, v := range goVersions {
+		if v == golangVersion {
+			hasDefault = true
+			break
+		}
+	}
+
+	if !hasDefault {
+		goVersions = append(goVersions, golangVersion)
+	}
+
+	slices.SortFunc(goVersions, func(a, b string) int {
+		return strings.Compare(b, a)
+	})
+
+	goVersionOptions := make([]huh.Option[string], len(goVersions))
+	for i, v := range goVersions {
+		goVersionOptions[i] = huh.NewOption(v, v)
+	}
+	return goVersionOptions
 }
 
 func validateAppName(appName string) error {
@@ -183,4 +210,22 @@ func getTemplateTypeOptions() ([]huh.Option[string], error) {
 		options = append(options, huh.Option[string]{Key: template, Value: template})
 	}
 	return options, nil
+}
+
+func getDefaultGoVersion() string {
+	out, err := exec.Command("go", "version").Output()
+	if err != nil {
+		return "1.25"
+	}
+	// Output is usually: "go version go1.25.1 darwin/arm64"
+	fields := strings.Fields(string(out))
+	if len(fields) < 3 {
+		return "1.25"
+	}
+	version := strings.TrimPrefix(fields[2], "go")
+	parts := strings.Split(version, ".")
+	if len(parts) >= 2 {
+		return parts[0] + "." + parts[1]
+	}
+	return "1.25"
 }
