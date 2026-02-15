@@ -13,7 +13,7 @@ func Run() {
 	app := &cli.Command{
 		Name:    "cligen",
 		Usage:   "Generate a new Go CLI app scaffold powered by urfave/cli",
-		Version: "0.1.0",
+		Version: "1.1.0",
 		Commands: []*cli.Command{
 			newCmd(),
 			configureCmd(),
