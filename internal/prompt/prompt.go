@@ -141,7 +141,7 @@ func getBaseSettings(conf *config.Config) (gen.TemplateOptions, error) {
 }
 
 func getGolangVersionOptions(golangVersion string) []huh.Option[string] {
-	goVersions := []string{"1.25", "1.24", "1.23"}
+	goVersions := []string{"1.26", "1.25", "1.24", "1.23"}
 	hasDefault := false
 	for _, v := range goVersions {
 		if v == golangVersion {
